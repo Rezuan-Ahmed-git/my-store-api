@@ -1,0 +1,892 @@
+---
+openapi: 3.0.0
+info:
+  title: MY STORE API
+  description: "This is an Ecommerce API specification. The API will provide essential functionality for managing products, user accounts, shopping carts, orders, payments, and more. It will be accessible via RESTful endpoints to support both web and mobile clients."
+  contact:
+    name: Rezuan Ahmed
+    url: https://github.com/Rezuan-Ahmed-git
+    email: rezuanahmed.dev@gmail.com
+  version: 1.0.0
+servers:
+- url: http://localhost:4000/api/v1
+  description: Dev Server
+tags:
+- name: Auth
+  description: Authentication Endpoints (public)
+- name: Product
+  description: Product Endpoints (public + private)
+- name: User
+  description: User Endpoints (private)
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      description: create a new account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth_register_body'
+      responses:
+        "201":
+          description: Registered successsfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      description: Log in to your account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth_login_body'
+      responses:
+        "200":
+          description: Logged in successsfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /products:
+    get:
+      tags:
+      - Product
+      description: Fetch all products
+      parameters:
+      - name: page
+        in: query
+        description: current page number
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: limit
+        in: query
+        description: maximum items to be returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 10
+      - name: sort_type
+        in: query
+        description: type of sort (asc or dsc)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: dsc
+          enum:
+          - asc
+          - dsc
+      - name: sort_by
+        in: query
+        description: Sort key
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: category
+      - name: search
+        in: query
+        description: Search term
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: title
+      responses:
+        "200":
+          description: Return a list of aroducts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+    post:
+      tags:
+      - Product
+      description: Create a new product
+      operationId: createProduct
+      requestBody:
+        description: To create a new Product user must neet to provide valid data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/products_body'
+      responses:
+        "201":
+          description: Successfully created a new product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_1'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      security:
+      - bearerAuth: []
+  /products/{id}:
+    get:
+      tags:
+      - Product
+      description: Fetch a single product
+      parameters:
+      - name: id
+        in: path
+        description: Product Id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: 6505ae71960ec73604075938
+      responses:
+        "200":
+          description: Single Product view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+    put:
+      tags:
+      - Product
+      description: Update a single product
+      parameters:
+      - name: id
+        in: path
+        description: Product Id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: 6505ae71960ec73604075938
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/products_id_body'
+      responses:
+        "200":
+          description: Single Product view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "201":
+          description: Single Product view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_2'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Product
+      description: Delete a product by id
+      parameters:
+      - name: id
+        in: path
+        description: Product Id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: 6505ae71960ec73604075938
+      responses:
+        "204":
+          description: Product deleted successfully
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Product
+      description: Partially update a single product
+      parameters:
+      - name: id
+        in: path
+        description: Product Id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: 6505ae71960ec73604075938
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/products_id_body_1'
+      responses:
+        "200":
+          description: Single Product view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6505ae71960ec73604075938
+        title:
+          type: string
+          example: Apple Watch
+        slug:
+          type: string
+          example: apple-watch
+        description:
+          type: string
+          example: It's an amazing product
+        price:
+          type: integer
+          format: int32
+          example: 750
+        category:
+          type: string
+          example: watch
+        brand:
+          type: string
+          example: Apple
+        sold:
+          type: integer
+          format: int32
+          example: 5
+        quantity:
+          type: integer
+          format: int32
+          example: 100
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/products_images'
+        link:
+          type: string
+          format: url
+          example: /products/1
+    Timestamp:
+      type: object
+      properties:
+        createAt:
+          type: string
+          format: date 
+        updateAt:
+          type: string
+          format: date 
+    Pagination:
+      required:
+      - limit
+      - page
+      - totalItems
+      - totalPage
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          example: 2
+        limit:
+          type: integer
+          format: int32
+          example: 10
+        next:
+          type: integer
+          format: int32
+          example: 3
+        prev:
+          type: integer
+          format: int32
+          example: 1
+        totalPage:
+          type: integer
+          format: int32
+          example: 5
+        totalItems:
+          type: integer
+          format: int32
+          example: 50
+    auth_register_body:
+      required:
+      - address
+      - email
+      - firstName
+      - lastName
+      - mobile
+      - password
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Rezuan
+        lastName:
+          type: string
+          example: Ahmed
+        email:
+          type: string
+          format: email
+          example: rezuanahmed.dev@gmail.com
+        mobile:
+          type: string
+          example: +880 111 111
+        password:
+          type: string
+          format: password
+          example: password1234
+        address:
+          type: string
+          example: "Dhaka, Bangladesh"
+    inline_response_201:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 201
+        message:
+          type: string
+          example: Register successful
+        data:
+          $ref: '#/components/schemas/inline_response_201_data'
+    inline_response_400:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad Request
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_400_data'
+    inline_response_500:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        error:
+          type: string
+          example: Internal Server Error
+        message:
+          type: string
+          example: we are sorry for the inconvinience. Please try again later
+    auth_login_body:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: rezuanahmed.dev@gmail.com
+        password:
+          type: string
+          format: password
+          example: password1234
+    inline_response_200:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: Login successful
+        data:
+          $ref: '#/components/schemas/inline_response_200_data'
+    inline_response_200_1:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Product'
+            - $ref: '#/components/schemas/Timestamp'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/inline_response_200_1_links'
+    products_images:
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+          example: http://cloudinary.image.1
+    products_body:
+      required:
+      - brand
+      - category
+      - price
+      - quantity
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          example: Apple Watch
+        description:
+          type: string
+          example: It's an amazing watch
+        price:
+          type: integer
+          example: 1000
+        category:
+          type: string
+          example: watch
+        brand:
+          type: string
+          example: Apple
+        quatity:
+          type: string
+          example: "110"
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/products_images'
+    inline_response_201_1:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 201
+        message:
+          type: string
+          example: Product created successfully
+        data:
+          $ref: '#/components/schemas/Product'
+        links:
+          $ref: '#/components/schemas/inline_response_201_1_links'
+    inline_response_401:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: You don't have the right permissions
+    inline_response_200_2:
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Product'
+          - $ref: '#/components/schemas/Timestamp'
+    inline_response_404:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: Requested resource not found
+    products_id_body:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Apple Watch
+        description:
+          type: string
+          example: It's an amazing watch
+        price:
+          type: integer
+          example: 1000
+        category:
+          type: string
+          example: watch
+        brand:
+          type: string
+          example: Apple
+        quatity:
+          type: string
+          example: "110"
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/products_images'
+    inline_response_200_3:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: Product updated successfully
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Product'
+          - $ref: '#/components/schemas/Timestamp'
+    inline_response_201_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 201
+        message:
+          type: string
+          example: Product created successfully
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Product'
+          - $ref: '#/components/schemas/Timestamp'
+    products_id_body_1:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Apple Watch
+        description:
+          type: string
+          example: It's an amazing watch
+        price:
+          type: integer
+          example: 1000
+        category:
+          type: string
+          example: watch
+        brand:
+          type: string
+          example: Apple
+        quatity:
+          type: string
+          example: "110"
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/products_images'
+    inline_response_201_data_links:
+      type: object
+      properties:
+        self:
+          type: string
+          example: /auth/register
+        login:
+          type: string
+          example: /auth/login
+    inline_response_201_data:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        links:
+          $ref: '#/components/schemas/inline_response_201_data_links'
+    inline_response_400_data:
+      type: object
+      properties:
+        field:
+          type: string
+          example: email
+        message:
+          type: string
+          example: Invalid email
+        in:
+          type: string
+          example: body
+          enum:
+          - query
+          - body
+    inline_response_200_data_links:
+      type: object
+      properties:
+        self:
+          type: string
+          example: /auth/login
+    inline_response_200_data:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        links:
+          $ref: '#/components/schemas/inline_response_200_data_links'
+    inline_response_200_1_links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          example: /products?page=2&limi=10
+        next:
+          type: string
+          format: url
+          example: /products?page=3&limit=10
+        prev:
+          type: string
+          format: url
+          example: /products?page=1&limit=10
+    inline_response_201_1_links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          example: /products/1
+  responses:
+    "500":
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_500'
+    "400":
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_401'
+    "404":
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_404'
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: current page number
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        format: int32
+        example: 1
+    limitParam:
+      name: limit
+      in: query
+      description: maximum items to be returned
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        format: int32
+        example: 10
+    sortTypeParam:
+      name: sort_type
+      in: query
+      description: type of sort (asc or dsc)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+        example: dsc
+        enum:
+        - asc
+        - dsc
+    sortByParam:
+      name: sort_by
+      in: query
+      description: Sort key
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+        example: category
+    searchParam:
+      name: search
+      in: query
+      description: Search term
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+        example: title
+    idPathParam:
+      name: id
+      in: path
+      description: Product Id
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: 6505ae71960ec73604075938
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
