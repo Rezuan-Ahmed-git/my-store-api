@@ -4,13 +4,13 @@ const { authMiddleware, isAdmin } = require('../middleware/auth');
 
 router
   .route('/api/v1/products')
-  .post(productController.create)
+  .post(authMiddleware, isAdmin, productController.create)
   .get(productController.findAllItems);
 
 router
   .route('/api/v1/products/:id')
   .get(productController.findSingleItem)
-  .delete(productController.removeItem)
-  .patch(productController.updateItem);
+  .delete(authMiddleware, isAdmin, productController.removeItem)
+  .patch(authMiddleware, isAdmin, productController.updateItem);
 
 module.exports = router;
