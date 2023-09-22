@@ -6,6 +6,7 @@ const routes = require('./routes');
 const app = express();
 
 applyMiddleware(app);
+app.use(routes.authRoute);
 app.use(routes.productRoute);
 
 app.get('/health', (req, res) => {
