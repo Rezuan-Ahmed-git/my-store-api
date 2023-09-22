@@ -1,8 +1,9 @@
 const create = require('./createService');
 const findAll = require('./findAllService');
-const count = require('./countProductService');
+const count = require('./countItemService');
 const findSingle = require('./findSingleService');
 const removeItem = require('./removeItemService');
+const updateItem = require('./updateItemService');
 
 module.exports = {
   create,
@@ -10,4 +11,5 @@ module.exports = {
   count,
   findSingle,
   removeItem,
+  updateItem,
 };
