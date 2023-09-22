@@ -8,6 +8,7 @@ const app = express();
 applyMiddleware(app);
 app.use(routes.authRoute);
 app.use(routes.productRoute);
+app.use(routes.userRoute);
 
 app.get('/health', (req, res) => {
   res.status(200).json({
