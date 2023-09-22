@@ -23,7 +23,12 @@ const create = async (req, res, next) => {
       images,
       slug,
     });
-    res.status(201).json(product);
+
+    const links = {
+      self: req.url,
+    };
+
+    res.status(201).json({ product, links });
   } catch (e) {
     next(e);
   }

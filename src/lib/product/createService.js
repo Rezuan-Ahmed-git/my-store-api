@@ -1,5 +1,18 @@
 const { Product } = require('../../model');
 
+/**
+ * Create a new product
+ * @param {object} product
+ * @param {string} product.title
+ * @param {string} product.description
+ * @param {number} product.price
+ * @param {string} product.category
+ * @param {string} product.brand
+ * @param {number} product.quantity
+ * @param {Array} product.images
+ * @param {string} product.slug
+ * @returns {object} A newly created Product object
+ */
 const create = async ({
   title,
   description,
