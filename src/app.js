@@ -1,10 +1,12 @@
 const express = require('express');
 const applyMiddleware = require('./middleware/index');
+const routes = require('./routes');
 
 //express app
 const app = express();
 
 applyMiddleware(app);
+app.use(routes.productRoute);
 
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -13,7 +15,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _req, res, next) => {
   console.log(err);
 
   //format error

@@ -594,7 +594,7 @@ components:
         brand:
           type: string
           example: Apple
-        quatity:
+        quantity:
           type: string
           example: "110"
         images:
@@ -666,7 +666,7 @@ components:
         brand:
           type: string
           example: Apple
-        quatity:
+        quantity:
           type: string
           example: "110"
         images:
@@ -719,7 +719,7 @@ components:
         brand:
           type: string
           example: Apple
-        quatity:
+        quantity:
           type: string
           example: "110"
         images:
