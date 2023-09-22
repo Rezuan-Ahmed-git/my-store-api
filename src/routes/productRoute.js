@@ -6,6 +6,9 @@ router
   .post(productController.create)
   .get(productController.findAllItems);
 
-router.route('/api/v1/products/:id').get(productController.findSingleItem);
+router
+  .route('/api/v1/products/:id')
+  .get(productController.findSingleItem)
+  .delete(productController.removeItem);
 
 module.exports = router;
