@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { controllers: productController } = require('../api/v1/product');
+const { authMiddleware, isAdmin } = require('../middleware/auth');
 
 router
   .route('/api/v1/products')
