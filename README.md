@@ -4,6 +4,10 @@
 
 ---
 
+### Important links:
+
+- [Notion] : https://omniscient-alarm-ccc.notion.site/E-commerce-API-95c06ca52843463f8828c5f97487e3d8
+
 ### Installation
 
 ```
@@ -50,6 +54,3 @@ GET (public) - '/products/:id' - Fetch a product
 
 ![er diagram](./er-diagram.jpg)
 
-### Important links:
-
-- [Notion] : https://omniscient-alarm-ccc.notion.site/E-commerce-API-95c06ca52843463f8828c5f97487e3d8
