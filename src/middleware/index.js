@@ -10,11 +10,11 @@ const applyMiddleware = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
-  app.use(
-    OpenApiValidator.middleware({
-      apiSpec: './swagger.yaml',
-    })
-  );
+  // app.use(
+  //   OpenApiValidator.middleware({
+  //     apiSpec: './swagger.yaml',
+  //   })
+  // );
 };
 
 module.exports = applyMiddleware;

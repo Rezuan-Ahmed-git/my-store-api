@@ -8,6 +8,7 @@ router
 
 router
   .route('/api/v1/users/:id')
-  .get(authMiddleware, isAdmin, userControllers.findSingleUser);
+  .get(authMiddleware, isAdmin, userControllers.findSingleUser)
+  .delete(authMiddleware, isAdmin, userControllers.removeSingleUser);
 
 module.exports = router;
