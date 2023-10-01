@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
+//check logged in user
 const authMiddleware = async (req, _res, next) => {
   let token;
 
@@ -22,6 +23,7 @@ const authMiddleware = async (req, _res, next) => {
   }
 };
 
+//check Admin
 const isAdmin = async (req, _res, next) => {
   const { email } = req.user;
   const adminUser = await User.findOne({ email });

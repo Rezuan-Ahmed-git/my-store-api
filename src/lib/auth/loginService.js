@@ -11,6 +11,7 @@ const { hashMatched } = require('../../utils/hashing');
  */
 const loginService = async ({ email, password }) => {
   const user = await User.findOne({ email });
+
   if (!user) {
     throw badRequest('Invalid Credentials');
   }

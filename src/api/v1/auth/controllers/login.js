@@ -7,14 +7,18 @@ const login = async (req, res, next) => {
   try {
     const loggedInUser = await authServices.login({ email, password });
 
-    res.status(200).json({
-      _id: loggedInUser?._id,
-      firstName: loggedInUser?.firstName,
-      lastName: loggedInUser?.lastName,
-      email: loggedInUser?.email,
-      mobile: loggedInUser?.mobile,
-      token: generateToken(loggedInUser?._id),
-    });
+    const response = {
+      code: 200,
+      message: 'Login Successfull',
+      data: {
+        access_token: generateToken(loggedInUser?._id),
+      },
+      links: {
+        self: '/auth/login',
+      },
+    };
+
+    res.status(200).json(response);
   } catch (e) {
     next(e);
   }
