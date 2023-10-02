@@ -32,6 +32,8 @@
 ```
 npm install
 ```
+###Note:
+After successfully running the project on your local machine, if you want to get access to the private routes, please register yourself then go to your DATABASE and make your role as an ADMIN. Please edit your database to make yourself admin. Then you can easily use the access token and use the private routes. 
 
 ### API endpoints:
 
