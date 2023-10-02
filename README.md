@@ -6,7 +6,25 @@
 
 ### Important links:
 
-- [Notion] : https://omniscient-alarm-ccc.notion.site/E-commerce-API-95c06ca52843463f8828c5f97487e3d8
+1.  Presentation slide :
+    <a href="https://tinyurl.com/4pmmc86w" target="_blank">click</a>
+
+2.  API research:
+    <a href="https://tinyurl.com/mufyupha" target="_blank">click</a>
+
+3.  API Documentation:
+    <a href="https://tinyurl.com/7m2m8uy7" target="_blank">click</a>
+
+        You will find:
+
+        	a. Project Idea
+        	b. Checklist
+        	c. SRS
+        	d. Entities/Schema/Model
+        	e. ER Diagram
+        	f. API Endpoints
+        	g. Open API Specification
+        	h. File Structure
 
 ### Installation
 
@@ -32,6 +50,8 @@ Admin only:
 GET (private) - '/users' - Fetch all users
 
 GET (private) - '/users/:id' - Fetch a user
+
+DELETE (private) - '/users/:id' - Delete a user
 ```
 
 #### Product: (Base_Url: http://localhost:4000/api/v1)
@@ -53,4 +73,3 @@ GET (public) - '/products/:id' - Fetch a product
 ### ER Diagram:
 
 ![er diagram](./er-diagram.jpg)
-
