@@ -7,13 +7,13 @@
 ### Important links:
 
 1.  Presentation slide :
-    <a href="https://tinyurl.com/4pmmc86w" target="_blank">click</a>
+    <a href="https://tinyurl.com/4pmmc86w">click</a>
 
 2.  API research:
-    <a href="https://tinyurl.com/mufyupha" target="_blank">click</a>
+    <a href="https://tinyurl.com/mufyupha">click</a>
 
 3.  API Documentation:
-    <a href="https://tinyurl.com/7m2m8uy7" target="_blank">click</a>
+    <a href="https://tinyurl.com/7m2m8uy7">click</a>
 
         You will find:
 
