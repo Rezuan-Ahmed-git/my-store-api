@@ -27,6 +27,7 @@
         	h. File Structure
 
 ### Installation
+#### Video tutorial: <a href="https://www.loom.com/share/166a35e016024c1b9cf6ffef24c2fbf3?sid=8f0f2bc1-410c-49fe-b2e7-445d48e2c4d5">click</a>
 
 ```
 npm install
